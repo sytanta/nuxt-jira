@@ -8,6 +8,7 @@ import { SignUpSchema } from '~/lib/schema/auth'
 
 const queryClient = useQueryClient()
 
+// Sign up with email & password
 configure({
     validateOnBlur: false
 });
@@ -27,7 +28,7 @@ const { isPending, mutate } = useMutation({
     onError: () => toast.error('Failed to sign up')
 })
 
-const handleSubmit = form.handleSubmit((values) => mutate(values))
+const handleSignUp = form.handleSubmit((values) => mutate(values))
 </script>
 
 <template>
@@ -36,16 +37,16 @@ const handleSubmit = form.handleSubmit((values) => mutate(values))
             <CardTitle class="text-2xl">Sign Up</CardTitle>
             <CardDescription>
                 By signing up, you agree to our
-                <NuxtLink href="/privacy" class="text-blue-700">Privacy Policy</NuxtLink>
+                <NuxtLink href="#" class="text-blue-700">Privacy Policy</NuxtLink>
                 and
-                <NuxtLink href="/terms" class="text-blue-700">Terms of Service</NuxtLink>
+                <NuxtLink href="#" class="text-blue-700">Terms of Service</NuxtLink>
             </CardDescription>
         </CardHeader>
         <div class="px-7">
             <DottedSeparator />
         </div>
         <CardContent class="p-7">
-            <form @submit="handleSubmit" class="space-y-4">
+            <form @submit="handleSignUp" class="space-y-4">
                 <FormField v-slot="{ componentField }" name="name">
                     <FormItem>
                         <FormControl>
@@ -80,10 +81,12 @@ const handleSubmit = form.handleSubmit((values) => mutate(values))
             <DottedSeparator />
         </div>
         <CardContent class="flex flex-col p-7 gap-y-4">
-            <Button variant="secondary" size="lg" class="w-full">
-                <Icon name="logos:github-icon" size="20px" class="size-5 mr-1" />
-                Sign in with GitHub
-            </Button>
+            <form action="/api/auth/github" method="post">
+                <Button variant="secondary" size="lg" class="w-full">
+                    <Icon name="logos:github-icon" size="20px" class="size-5 mr-1" />
+                    Sign up with GitHub
+                </Button>
+            </form>
         </CardContent>
         <div class="px-7">
             <DottedSeparator />

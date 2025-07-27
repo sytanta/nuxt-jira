@@ -28,6 +28,9 @@ export default defineNuxtConfig({
       appwriteProjectsId: process.env.PUBLIC_APPWRITE_PROJECTS_ID,
       appwriteTasksId: process.env.PUBLIC_APPWRITE_TASKS_ID,
       appwriteImagesBucketId: process.env.PUBLIC_APPWRITE_IMAGES_BUCKET_ID,
+
+      siteUrl: process.env.PUBLIC_SITE_URL,
+      oauthGitHubCallbackUrl: process.env.PUBLIC_OAUTH_CALLBACK_URL_GITHUB,
     },
   },
 

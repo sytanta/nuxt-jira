@@ -8,6 +8,7 @@ import { SignInSchema } from '~/lib/schema/auth'
 
 const queryClient = useQueryClient()
 
+// Sign in with email & password
 configure({
     validateOnBlur: false
 });
@@ -27,7 +28,7 @@ const { isPending, mutate } = useMutation({
     onError: () => toast.error('Failed to sign in')
 })
 
-const handleSubmit = form.handleSubmit((values) => mutate(values))
+const handleSignIn = form.handleSubmit((values) => mutate(values))
 </script>
 
 <template>
@@ -39,7 +40,7 @@ const handleSubmit = form.handleSubmit((values) => mutate(values))
             <DottedSeparator />
         </div>
         <CardContent class="p-7">
-            <form @submit="handleSubmit">
+            <form @submit="handleSignIn">
                 <fieldset :disabled="isPending" class="space-y-4">
                     <FormField v-slot="{ componentField }" name="email">
                         <FormItem>
@@ -69,10 +70,12 @@ const handleSubmit = form.handleSubmit((values) => mutate(values))
             <DottedSeparator />
         </div>
         <CardContent class="flex flex-col p-7 gap-y-4">
-            <Button variant="secondary" size="lg" class="w-full">
-                <Icon name="logos:github-icon" size="20px" class="size-5 mr-1" />
-                Sign in with GitHub
-            </Button>
+            <form action="/api/auth/github" method="post">
+                <Button type="submit" variant="secondary" size="lg" class="w-full">
+                    <Icon name="logos:github-icon" size="20px" class="size-5 mr-1" />
+                    Sign in with GitHub
+                </Button>
+            </form>
         </CardContent>
         <div class="px-7">
             <DottedSeparator />
