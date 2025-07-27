@@ -5,6 +5,12 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
 
+  app: {
+    head: {
+      link: [{ rel: "icon", type: "image/png", href: "/favicon.png" }],
+    },
+  },
+
   css: ["~/assets/css/main.css"],
   vite: { plugins: [tailwindcss()] },
 
