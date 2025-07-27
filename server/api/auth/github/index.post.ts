@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   const { account } = createAdminClient();
 
   const redirectUrl = await account.createOAuth2Token(
-    "github" as OAuthProvider,
+    OAuthProvider.Github,
     `${config.public.siteUrl}/oauth/github/callback`,
     `${config.public.siteUrl}/sign-up`,
   );
