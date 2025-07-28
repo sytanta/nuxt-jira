@@ -7,6 +7,10 @@ definePageMeta({
     middleware: [authenticatedPageProtectMiddleware]
 })
 
+useHead({
+    title: 'My tasks'
+})
+
 const auth = useAuthStore()
 </script>
 

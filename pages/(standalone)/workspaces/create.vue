@@ -5,6 +5,10 @@ definePageMeta({
     layout: 'standalone',
     middleware: [authenticatedPageProtectMiddleware]
 })
+
+useHead({
+    title: 'Create workspace'
+})
 </script>
 
 <template>

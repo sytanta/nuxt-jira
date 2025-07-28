@@ -33,6 +33,13 @@ onServerPrefetch(async () => {
     await suspense()
 })
 
+const pageTitle = computed(() => data?.value?.workspace.name
+    ? `${data?.value?.workspace.name} settings`
+    : 'Workspace settings')
+useHead({
+    title: pageTitle
+})
+
 const onUpdateSuccess = async () => {
     refetch()
 }

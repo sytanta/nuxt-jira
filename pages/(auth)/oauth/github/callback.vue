@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { useQueryClient } from '@tanstack/vue-query'
 
+useHead({
+    title: 'Authenticating with GitHub'
+})
+
 const route = useRoute()
 const queryClient = useQueryClient()
 

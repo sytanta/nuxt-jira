@@ -11,6 +11,10 @@ const route = useRoute()
 const { data: workspace, status } = await useFetch(`/api/workspaces/${route.params['workspaceId']}/info`)
 
 const isLoading = computed(() => status.value === 'idle' || status.value === 'pending')
+
+useHead({
+    title: `${workspace?.value?.name} workspace join`
+})
 </script>
 
 <template>

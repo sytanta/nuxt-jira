@@ -6,7 +6,11 @@ import authenticatedPageProtectMiddleware from '~/middleware/page-protect/authen
 
 definePageMeta({
     layout: 'dashboard',
-    middleware: [authenticatedPageProtectMiddleware],
+    middleware: [authenticatedPageProtectMiddleware]
+})
+
+useHead({
+    title: 'Nuxt Jira'
 })
 
 const { data, isFetching, isSuccess, suspense } = useQuery<Models.Document[]>

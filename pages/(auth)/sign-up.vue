@@ -5,6 +5,10 @@ definePageMeta({
     layout: 'auth',
     middleware: [authPageProtectMiddleware]
 })
+
+useHead({
+    title: 'Sign Up | Nuxt Jira'
+})
 </script>
 
 <template>

@@ -24,6 +24,11 @@ const { data: task, isLoading, isRefetching, suspense } = useQuery<FilteredTask>
         experimental_prefetchInRender: true
     })
 
+const pageTitle = computed(() => task?.value?.name ?? 'Task')
+useHead({
+    title: pageTitle
+})
+
 onServerPrefetch(async () => {
     await suspense()
 })

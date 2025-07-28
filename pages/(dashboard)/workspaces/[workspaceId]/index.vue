@@ -84,6 +84,11 @@ const { data: tasks, isPending: isLoadingTasks, suspense: loadTasks } = useQuery
         experimental_prefetchInRender: true
     })
 
+const pageTitle = computed(() => analytics?.value?.workspace.name ?? 'Workspace')
+useHead({
+    title: pageTitle
+})
+
 onServerPrefetch(async () => {
     await Promise.all([
         loadAnalytics(),

@@ -10,6 +10,10 @@ definePageMeta({
     middleware: [authenticatedPageProtectMiddleware]
 })
 
+useHead({
+    title: 'Members'
+})
+
 const route = useRoute()
 const workspaceId = computed(() => route.params['workspaceId'])
 

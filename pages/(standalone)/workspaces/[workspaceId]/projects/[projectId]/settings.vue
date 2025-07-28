@@ -29,6 +29,13 @@ const { data, isPending, isRefetching, refetch, suspense } = useQuery<{
         experimental_prefetchInRender: true
     })
 
+const pageTitle = computed(() => data?.value?.project.name
+    ? `${data?.value?.project.name} settings`
+    : 'Project settings')
+useHead({
+    title: pageTitle
+})
+
 onServerPrefetch(async () => {
     await suspense()
 })
