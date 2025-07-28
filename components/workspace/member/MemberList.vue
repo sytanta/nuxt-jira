@@ -7,6 +7,7 @@ import MemberItem from './MemberItem.vue';
 
 const { data, workspaceId } = defineProps<{ data: Models.Document[]; workspaceId: string }>()
 
+const route = useRoute()
 const authStore = useAuthStore()
 
 const currentUserMembership = data.find(({ $id }) => $id === authStore.user?.$id)
@@ -18,7 +19,7 @@ const currentUserIsAdmin = !currentUserIsOwner && currentUserMembership!.role ==
     <Card class="size-full border-none shadow-none">
         <CardHeader class="flex flex-row items-center gap-x-4 space-y-0 px-7">
             <Button variant="secondary" size="sm" :as-child="true">
-                <NuxtLink href="/" class="flex items-center">
+                <NuxtLink :href="`/workspaces/${route.params['workspaceId']}`" class="flex items-center">
                     <Icon name="lucide:arrow-left" size="16px" class="size-4 mr-1" />
                     Back
                 </NuxtLink>
