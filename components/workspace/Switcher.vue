@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Models } from 'node-appwrite'
+import { templateRef } from '@vueuse/core'
 import { useQuery } from '@tanstack/vue-query'
 
 const route = useRoute()
@@ -18,11 +19,19 @@ const { data, isLoading } = useQuery<Models.Document[]>
 
 const { open } = useCreateWorkspaceModal()
 
-const currentWorkspaceId = computed(() => route.params['workspaceId'])
+// Workspace select
+const trigger = templateRef('trigger')
+const workspaceSelectOpen = ref(false)
+const selectedWorkspace: Ref<Models.Document | ''> = ref('')
+
+watch([() => route.params['workspaceId'], data], ([wId, data]) => {
+    const workspaceId = (String(wId) || data?.[0]?.$id) ?? ''
+    selectedWorkspace.value = data?.find(({ $id }) => $id === workspaceId) ?? ''
+}, { immediate: true })
 </script>
 
 <template>
-    <div class="flex flex-col gap-y-2">
+    <div class="flex flex-col gap-y-2" @click="workspaceSelectOpen = false">
         <div class="flex items-center justify-between">
             <p class="text-xs uppercase text-neutral-500">Workspaces</p>
             <button @click="open" class="flex items-center justify-center">
@@ -31,13 +40,18 @@ const currentWorkspaceId = computed(() => route.params['workspaceId'])
                     class="size-5 text-neutral-500 cursor-pointer transition hover:opacity-75" />
             </button>
         </div>
-        <Select :model-value="currentWorkspaceId">
-            <SelectTrigger
-                class="w-full bg-neutral-200 font-medium pl-3 focus-visible:border-transparent focus-visible:ring-transparent">
-                <SelectValue placeholder="No workspace selected"></SelectValue>
-            </SelectTrigger>
-            <SelectContent v-if="data?.length">
-                <SelectItem v-for="workspace of data" :key="workspace.$id" :value="workspace.$id"
+        <Select :model-value="selectedWorkspace" :open="workspaceSelectOpen"
+            @update:model-value="workspaceSelectOpen = false" class="relative">
+            <button id="trigger" @click.stop="workspaceSelectOpen = !workspaceSelectOpen" ref="trigger"
+                class="w-full text-left h-12 rounded-md bg-neutral-200 font-medium pl-3 focus-visible:border-transparent focus-visible:ring-transparent">
+                <div v-if="selectedWorkspace" class="flex items-center justify-start gap-3 font-medium">
+                    <WorkspaceAvatar :name="selectedWorkspace.name" :image="selectedWorkspace.image_url" />
+                    <span class="truncate">{{ selectedWorkspace.name }}</span>
+                </div>
+                <template v-else>No workspace selected</template>
+            </button>
+            <SelectContent v-if="data?.length" :reference="trigger" @pointer-down-outside="workspaceSelectOpen = false">
+                <SelectItem v-for="workspace of data" :key="workspace.$id" :value="workspace"
                     @select="navigateTo(`/workspaces/${workspace.$id}`)">
                     <div class="flex items-center justify-start gap-3 font-medium">
                         <WorkspaceAvatar :name="workspace.name" :image="workspace.image_url" />
