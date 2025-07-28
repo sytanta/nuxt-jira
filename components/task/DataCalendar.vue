@@ -42,7 +42,7 @@ const events: Event[] = data.map(({ $id, name, status, due_date, project, assign
     }
 }))
 
-const currentMonth = ref(format(new Date(data?.[0].due_date), 'MMMM yyyy'))
+const currentMonth = ref(format(new Date(data?.[0]?.due_date ?? new Date()), 'MMMM yyyy'))
 let calendar: Calendar | undefined = undefined
 onMounted(() => {
     const elm = document.getElementById('calendar')
@@ -52,7 +52,7 @@ onMounted(() => {
         calendar = new Calendar(elm as HTMLElement, {
             plugins: [dayGridPlugin],
             initialView: 'dayGridMonth',
-            initialDate: data?.[0].due_date ?? new Date(),
+            initialDate: data?.[0]?.due_date ?? new Date(),
             events,
             headerToolbar: {
                 start: '',
