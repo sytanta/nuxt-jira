@@ -10,7 +10,7 @@ const buttonLink = computed(() => route.name === 'sign-in' ? '/sign-up' : "/sign
         <div class="max-w-screen-2xl mx-auto p-4">
             <nav class="flex items-center justify-between">
                 <NuxtLink href="/" class="w-[152px] h-[56px]">
-                    <NuxtImg src="../public/logo.svg" width="152" height="56" alt="Nuxt Jira" />
+                    <img src="/public/logo.svg" width="152" height="56" alt="Nuxt Jira" />
                 </NuxtLink>
                 <Button variant="secondary" :as-child="true">
                     <NuxtLink :href="buttonLink">
